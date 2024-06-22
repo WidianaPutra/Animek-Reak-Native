@@ -4,6 +4,7 @@ import SplashScreen from '../screens/SplashScreen';
 import DetailScreen from '../screens/detailScreen';
 import AnimeScreen from '../screens/animeScreen';
 import AkunScreen from '../screens/akunScree';
+import NavigationBar from '../components/nav';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const Routes = () => {
       <Stack.Screen name="DetailScreen" component={DetailScreen} />
       <Stack.Screen name="AnimeScreen" component={AnimeScreen} />
       <Stack.Screen name="AkunScreen" component={AkunScreen} />
+      <Stack.Screen name="nav" component={NavigationBar} />
     </Stack.Navigator>
   );
 };

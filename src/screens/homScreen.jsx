@@ -14,7 +14,6 @@ const HomeScreen = ({navigation}) => {
           nav={navigation}
           title={`Anime Populer`}
           isPagination={false}
-          isShowAll={true}
         />
       </ScrollView>
     </>
