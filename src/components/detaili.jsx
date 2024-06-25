@@ -1,14 +1,16 @@
 import {View, ScrollView, Text, Image, TouchableOpacity} from 'react-native';
 import {styles} from '../styles/detail';
+import BackButton from './backButton';
 
 const DetailAnime = ({navigation, data}) => {
   return (
     <>
       <View>
         <View style={styles.backGroundPurple}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.backButton}></View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <BackButton nav={navigation} action={`back`} />
           <View style={styles.container}>
             <Image
               source={{uri: data.data.images.webp.image_url}}
