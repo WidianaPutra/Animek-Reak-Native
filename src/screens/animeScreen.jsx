@@ -17,7 +17,9 @@ const AnimeScreen = ({navigation}) => {
           resources={`anime`}
           title={`Anime`}
           nav={navigation}
-          inputSearch={isSearchValue}
+          inputSearch={setTimeout(() => {
+            isSearchValue;
+          }, 100)}
           search={true}
         />
       </ScrollView>

@@ -4,13 +4,13 @@ import {styles} from '../styles/card';
 import {GetResponse} from '../services/api';
 import Pagination from './pagination';
 import NotFound from './notFound';
+import LoadingCard from './loadingCard';
 
 const Card = ({resources, inputSearch, nav, title, isPagination, search}) => {
   const [anime, setAnime] = useState([]);
   const [pagination, setPagination] = useState(1);
   const [isPage, setIsPage] = useState(1);
-  const [isLimit, setIsLimit] = useState(false);
-  const [animeShow, setAnimeShow] = useState([]);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   async function response() {
     const response = await GetResponse(
@@ -21,6 +21,13 @@ const Card = ({resources, inputSearch, nav, title, isPagination, search}) => {
     setPagination(response?.pagination);
   }
 
+  if (anime.length === 0) {
+    setTimeout(() => {
+      anime.length === 0 ? setIsNotFound(!isNotFound) : setIsNotFound(false);
+      console.log(isNotFound);
+    }, 5000);
+  }
+
   useEffect(() => {
     response();
   }, [isPage, inputSearch]);
@@ -28,24 +35,30 @@ const Card = ({resources, inputSearch, nav, title, isPagination, search}) => {
   return (
     <>
       <Text style={styles.pageTitle}>
-        {search && anime?.length === 0 ? 'Anime Tidak Ditemukan' : title}
+        {isNotFound ? 'Anime tidak ditemukan' : title}
       </Text>
       <View style={styles.cardContainer}>
-        {anime?.map((data, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => {
-              nav.navigate('DetailScreen', {data: {data}});
-            }}>
-            <View style={styles.card}>
-              <Image
-                source={{uri: data.images.webp.image_url}}
-                style={styles.image}
-              />
-              <Text style={styles.title}>{data.title}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+        {anime.length === 0 ? (
+          <LoadingCard />
+        ) : (
+          <>
+            {anime?.map((data, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  nav.navigate('DetailScreen', {data: {data}});
+                }}>
+                <View style={styles.card}>
+                  <Image
+                    source={{uri: data.images.webp.image_url}}
+                    style={styles.image}
+                  />
+                  <Text style={styles.title}>{data.title}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </>
+        )}
       </View>
       {anime?.length != 0 && (
         <View>
